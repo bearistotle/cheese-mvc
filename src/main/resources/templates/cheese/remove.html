@@ -9,7 +9,8 @@
         <nav th:replace="fragments :: navigation"></nav>
         <h3 class="text-muted" th:text="${title}">Default Title</h3>
         <form method="post">
-            <input th:each="entry: ${cheeses}" type="checkbox" name="cheese" th:value="${entry.key}" th:text="${entry.key}" />
+            <input th:each="item: ${cheeses}" type="checkbox" name="cheeseToDelete" th:value="${item.getName()}"
+                   th:text="${item.getName()}" />
             <input type="submit" value="Remove" />
         </form>
     </div>

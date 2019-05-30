@@ -15,8 +15,8 @@
             </thead>
             <tbody>
             <tr th:each="cheese: ${cheeses}">
-                <td  th:text="${cheese.key}"></td>
-                <td th:text="${cheese.value}"></td>
+                <td  th:text="${cheese.getName()}"></td>
+                <td th:text="${cheese.getDescription()}"></td>
             </tr>
             </tbody>
         </table>

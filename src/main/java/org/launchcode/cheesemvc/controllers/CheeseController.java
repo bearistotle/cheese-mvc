@@ -7,14 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import org.launchcode.cheesemvc.models.Cheese;
 
 @Controller
 @RequestMapping(value = "cheese")
 public class CheeseController {
 
-    static HashMap<String, String> cheeses = new HashMap<>();
+    static ArrayList<Cheese> cheeses = new ArrayList<>();
 
     @RequestMapping(value = "")
     public String index(Model model){
@@ -31,9 +30,12 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@RequestParam String cheeseName, @RequestParam String description){
-        cheeses.put(cheeseName, description);
-        return "redirect:"; //redirect to cheese (redirect is relative to the handler it's in)
+    public String processAddCheeseForm(@RequestParam String cheeseName, @RequestParam String cheeseDescription){
+        Cheese cheese = new Cheese();
+        cheese.setName(cheeseName);
+        cheese.setDescription(cheeseDescription);
+        cheeses.add(cheese);
+        return "redirect:"; //redirect to cheese/ (redirect is relative to the handler it's in)
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
@@ -44,9 +46,9 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheese){
-        for (String item: cheese){
-            cheeses.remove(item);
+    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheeseToDelete){
+        for (String cheese: cheeseToDelete){
+            cheeses.removeIf(x -> x.getName().equals(cheese));
         }
         return "redirect:";
     }
