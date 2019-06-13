@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title th:text="${title}">My Cheeses</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="@{/static/css/styles.css}" type="text/css" />
 </head>
 <body>
 <nav class="nav" th:fragment="navigation">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="/cheese">List</a>
+            <a th:class="${tab == 'list'}? 'nav-link active' : 'nav-link'" href="/cheese">List</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/cheese/add">Add</a>
+            <a th:class="${tab == 'add'}? 'nav-link active' : 'nav-link'" href="/cheese/add">Add</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/cheese/remove">Remove</a>
+            <a th:class="${tab == 'remove'}? 'nav-link active' : 'nav-link'" href="/cheese/remove">Remove</a>
         </li>
     </ul>
 </nav>

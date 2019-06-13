@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <h1>My Cheeses</h1><br />
+        <nav th:replace="fragments :: navigation"></nav>
+        <br />
+        <h3 th:text="'Welcome ' + ${user.userName}"></h3>
+    </div>
+</div>
+</body>
+</html>
+
