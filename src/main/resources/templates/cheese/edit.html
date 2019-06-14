@@ -22,18 +22,21 @@
                     <input class="form-control" type="text" th:field="*{description}"/>
                 </div>
                 <span th:errors="*{description}" class="errors"></span>
-                <div class="form-group" style="max-width: 600px;">
-                    <label th:for="type"></label>
+                <div class="form-group" style="max-width: 100px;">
+                    <label th:for="type">Type:</label>
                     <select class="form-control" th:field="*{type}" >
                         <option th:each="cheeseType : ${cheeseTypes}" th:value="${cheeseType}"
                                 th:text="${cheeseType}"></option>
                     </select>
                 </div>
-                <div class="form-group" style="max-width: 600px;">
-                    <label th:for="rating"></label>
+                <div class="form-group" style="max-width: 100px;">
+                    <label th:for="rating">Rating:</label>
                     <select class="form-control" th:field="*{rating}">
-                        <option th:each="i : ${#numbers.sequence(1, 10, 1)}" th:value="${i}" th:text="${i}"></option>
+                        <option th:each="i : ${#numbers.sequence(1, 5, 1)}" th:value="${i}" th:text="${i}"></option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" th:field="*{cheeseId}" />
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Submit Changes" />

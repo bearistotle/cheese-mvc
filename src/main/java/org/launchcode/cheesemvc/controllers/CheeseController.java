@@ -34,20 +34,20 @@ public class CheeseController {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute("tab", "add");
         //add empty cheese obj to help render form properly (equivalent to "cheese", new Cheese())
-        model.addAttribute(new Cheese());
+        model.addAttribute("cheese", new Cheese());
         //add cheeseType enum array
         model.addAttribute("cheeseTypes", CheeseType.values());
         return "cheese/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese, Errors errors, Model model){
+    public String processAddCheeseForm(@ModelAttribute @Valid Cheese cheese, Errors errors, Model model){
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Cheese");
             model.addAttribute("tab", "add");
             return "cheese/add";
         }
-        CheeseData.add(newCheese);
+        CheeseData.add(cheese);
         return "redirect:"; //redirect to cheese/ (redirect is relative to the handler it's in)
     }
 
@@ -66,7 +66,7 @@ public class CheeseController {
         }
         return "redirect:";
     }
-
+//TODO: Fix issue with ids (not going up 1 by 1--something wrong with model binding creating extra objects)
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int cheeseId){
         Cheese cheeseToEdit = getByID(cheeseId);
@@ -80,22 +80,22 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String processEditForm(@ModelAttribute @Valid Cheese editedCheese, Errors errors, Model model){
+    public String processEditForm(@ModelAttribute @Valid Cheese cheese, Errors errors, Model model){
         if (errors.hasErrors()){
 
-            model.addAttribute("cheese", editedCheese);
-            model.addAttribute("title", String.format("Edit Cheese %s (id=%d)", editedCheese.getName(),
-                    editedCheese.getCheeseId()));
+            model.addAttribute("cheese", cheese);
+            model.addAttribute("title", String.format("Edit Cheese %s (id=%d)", cheese.getName(),
+                    cheese.getCheeseId()));
             model.addAttribute("cheeseTypes", CheeseType.values());
             model.addAttribute("tab", "list");
 
             return "cheese/edit";
         }
-        Cheese oldCheese = CheeseData.getByID(editedCheese.getCheeseId());
-        oldCheese.setName(editedCheese.getName());
-        oldCheese.setDescription(editedCheese.getDescription());
-        oldCheese.setType(editedCheese.getType());
-        oldCheese.setRating(editedCheese.getRating());
+        Cheese oldCheese = CheeseData.getByID(cheese.getCheeseId());
+        oldCheese.setName(cheese.getName());
+        oldCheese.setDescription(cheese.getDescription());
+        oldCheese.setType(cheese.getType());
+        oldCheese.setRating(cheese.getRating());
         return "redirect:";
     }
 }
